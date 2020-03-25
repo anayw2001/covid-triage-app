@@ -15,6 +15,7 @@
 		12E93981242AFA9C0041A038 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12E9397F242AFA9C0041A038 /* LaunchScreen.storyboard */; };
 		12E9398C242AFA9C0041A038 /* COVID_testerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E9398B242AFA9C0041A038 /* COVID_testerTests.swift */; };
 		12E93997242AFA9C0041A038 /* COVID_testerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E93996242AFA9C0041A038 /* COVID_testerUITests.swift */; };
+		12E939A5242AFAE60041A038 /* TestCategoryDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		12E93992242AFA9C0041A038 /* COVID testerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "COVID testerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		12E93996242AFA9C0041A038 /* COVID_testerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COVID_testerUITests.swift; sourceTree = "<group>"; };
 		12E93998242AFA9C0041A038 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCategoryDecider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				12E93978242AFA9A0041A038 /* ContentView.swift */,
 				12E9397A242AFA9C0041A038 /* Assets.xcassets */,
 				12E9397F242AFA9C0041A038 /* LaunchScreen.storyboard */,
+				12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */,
 				12E93982242AFA9C0041A038 /* Info.plist */,
 				12E9397C242AFA9C0041A038 /* Preview Content */,
 			);
@@ -269,6 +272,7 @@
 			files = (
 				12E93975242AFA9A0041A038 /* AppDelegate.swift in Sources */,
 				12E93977242AFA9A0041A038 /* SceneDelegate.swift in Sources */,
+				12E939A5242AFAE60041A038 /* TestCategoryDecider.swift in Sources */,
 				12E93979242AFA9A0041A038 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
