@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12E00EE1242C51F600A50916 /* DoNotTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E00EE0242C51F600A50916 /* DoNotTestView.swift */; };
+		12E00EE3242C520400A50916 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E00EE2242C520400A50916 /* TestView.swift */; };
 		12E93975242AFA9A0041A038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E93974242AFA9A0041A038 /* AppDelegate.swift */; };
 		12E93977242AFA9A0041A038 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E93976242AFA9A0041A038 /* SceneDelegate.swift */; };
 		12E93979242AFA9A0041A038 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E93978242AFA9A0041A038 /* ContentView.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12E00EE0242C51F600A50916 /* DoNotTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNotTestView.swift; sourceTree = "<group>"; };
+		12E00EE2242C520400A50916 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		12E93971242AFA9A0041A038 /* COVID tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "COVID tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		12E93974242AFA9A0041A038 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12E93976242AFA9A0041A038 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,7 +110,9 @@
 				12E93978242AFA9A0041A038 /* ContentView.swift */,
 				12E9397A242AFA9C0041A038 /* Assets.xcassets */,
 				12E9397F242AFA9C0041A038 /* LaunchScreen.storyboard */,
+				12E00EE0242C51F600A50916 /* DoNotTestView.swift */,
 				12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */,
+				12E00EE2242C520400A50916 /* TestView.swift */,
 				12E93982242AFA9C0041A038 /* Info.plist */,
 				12E9397C242AFA9C0041A038 /* Preview Content */,
 			);
@@ -270,10 +276,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12E00EE3242C520400A50916 /* TestView.swift in Sources */,
 				12E93975242AFA9A0041A038 /* AppDelegate.swift in Sources */,
 				12E93977242AFA9A0041A038 /* SceneDelegate.swift in Sources */,
 				12E939A5242AFAE60041A038 /* TestCategoryDecider.swift in Sources */,
 				12E93979242AFA9A0041A038 /* ContentView.swift in Sources */,
+				12E00EE1242C51F600A50916 /* DoNotTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
