@@ -326,11 +326,26 @@ struct q9: View {
     var result2: Int
     var results_table = constants()
     @State var question = "Is this patient immunocompromised?"
+    @State var clarifications = ["-Steroids >20mg (or > 0.5mg/kg/day in pediatrics) for > 2 weeks",
+    "-On biologics or other steroid sparing immunomodulators (other than Plaquenil)",
+    "-Chemotherapy for solid organ tumor or other malignancy less than 3 months ago",
+    "-Hematologic malignancy not in remission",
+    "-S/P autologous HSCT x 1 year, allogeneic HSCT until off immunosuppression x 1 year",
+    "-Solid organ transplant recipient",
+    "-Others: CVID, uncontrolled HIV, primary immunodeficiency"]
+
     var body: some View {
         VStack {
-            Spacer().frame(height:150)
+            Spacer().frame(height:50)
             Text(question).font(.title).multilineTextAlignment(.center)
-            Spacer().frame(height:250)
+            Spacer().frame(height:20)
+            VStack(alignment: .leading) {
+                ForEach(clarifications, id: \.self) { clarification in
+                    Text(clarification + "\n")
+                }
+            }
+            .padding(.horizontal, 15.0)
+            Spacer()
             HStack {
                 NavigationLink(destination: TestView()) {
                     Text("Yes")
