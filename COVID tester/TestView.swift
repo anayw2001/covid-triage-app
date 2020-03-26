@@ -16,7 +16,7 @@ struct TestView: View {
                 Rectangle().fill(Color.white).frame(width:25, height: 40).rotationEffect(.degrees(-45)).offset(x: -40, y: 10)
                 Rectangle().fill(Color.white).frame(width:25, height: 110).rotationEffect(.degrees(45)).offset(x: 10)
             }
-            Text("Test this patient ASAP.").bold()
+            Text("Test this patient.").bold().font(.system(size: 24))
         }
     }
 }

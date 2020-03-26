@@ -16,7 +16,7 @@ struct DoNotTestView: View {
                 Rectangle().fill(Color.white).frame(width:25, height: 110).rotationEffect(.degrees(-45))
                 Rectangle().fill(Color.white).frame(width:25, height: 110).rotationEffect(.degrees(45))
             }
-            Text("Do not test this patient.").bold()
+            Text("Do not test this patient.").bold().font(.system(size: 24))
         }
     }
 }

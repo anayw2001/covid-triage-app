@@ -55,7 +55,7 @@ struct q2: View {
                 }
                 NavigationLink(destination: {
                     VStack {
-                        if result1 == 1 {
+                        if result1 == 1 || result1 == 10 {
                             q3(result1: self.result1, result2: 2)
                         } else {
                             DoNotTestView()
@@ -70,7 +70,7 @@ struct q2: View {
                             q5(result1: self.result1, result2: 3)
                         } else if result1 == 1 {
                             q3(result1: self.result1, result2: 3)
-                        } else if result1 == 11 {
+                        } else if result1 == 11 || result1 == 10 {
                             q3(result1: self.result1, result2: 3)
                         } else {
                             q4(result1: self.result1, result2: 3)
@@ -97,7 +97,7 @@ struct q3: View {
             HStack {
                 NavigationLink(destination: {
                     VStack {
-                        if result1 == 1 {
+                        if result1 == 1 || result1 == 10 {
                             TestView()
                         } else if result1 == 11 {
                             q9(result1: self.result1, result2: self.result2)
@@ -112,7 +112,6 @@ struct q3: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                        .cornerRadius(25)
                 }
                 Spacer().frame(width: 50)
                 NavigationLink(destination: DoNotTestView()) {
@@ -122,7 +121,6 @@ struct q3: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                        .cornerRadius(25.0)
                 }
             }
         }
@@ -147,7 +145,6 @@ struct q4: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                        .cornerRadius(25)
                 }
                 Spacer().frame(width: 50)
                 NavigationLink(destination: DoNotTestView()) {
@@ -157,7 +154,6 @@ struct q4: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                        .cornerRadius(25.0)
                 }
             }
         }
@@ -182,7 +178,6 @@ struct q5: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                        .cornerRadius(25)
                 }
                 Spacer().frame(width: 50)
                 NavigationLink(destination: {
@@ -200,7 +195,6 @@ struct q5: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                        .cornerRadius(25.0)
                 }
             }
         }
