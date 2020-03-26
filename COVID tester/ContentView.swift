@@ -12,7 +12,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Hello! Would you like to get tested?").font(.title)
+                Text("Let's see if your patient needs testing!").font(.title)
                 Spacer().frame(height: 100)
                 NavigationLink(destination: q1()) {
                     VStack {
