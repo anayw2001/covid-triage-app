@@ -66,13 +66,13 @@ struct q2: View {
                 }
                 NavigationLink(destination: {
                     VStack {
-                        if result1 == 8 || result1 == 9 {
+                        if result1 == 8 || result1 == 9 { // t1c
                             q5(result1: self.result1, result2: 3)
-                        } else if result1 == 1 {
+                        } else if result1 == 1 { // t1a
                             q3(result1: self.result1, result2: 3)
-                        } else if result1 == 11 || result1 == 10 {
+                        } else if result1 == 10 { // t1d
                             q3(result1: self.result1, result2: 3)
-                        } else {
+                        } else { // t1b/t2
                             q4(result1: self.result1, result2: 3)
                         }
                     }
@@ -138,7 +138,15 @@ struct q4: View {
             Text(question).font(.title).multilineTextAlignment(.center)
             Spacer().frame(height:250)
             HStack {
-                NavigationLink(destination: q5(result1: self.result1, result2: self.result2)) {
+                NavigationLink(destination: {
+                    VStack {
+                        if (result1 == 11) {
+                            q3(result1: self.result1, result2: self.result2)
+                        } else {
+                            q5(result1: self.result1, result2: self.result2)
+                        }
+                    }
+                }()) {
                     Text("Yes")
                         .font(.title)
                         .padding()
