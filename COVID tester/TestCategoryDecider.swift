@@ -9,158 +9,347 @@
 import Foundation
 import SwiftUI
 
-struct YesNoQuestionView: View {
-    var question: String
-    var body: some View {
-        VStack {
-            Text(question)
-            Spacer()
-            YesNoView()
-        }
-    }
-}
-
-struct ChoiceRow: View {
-    var toDisplay: String
-    var body: some View {
-        HStack {
-            Text(toDisplay)
-        }
-    }
-}
-
-struct OptionsQuestionView: View {
-    var question: String
-    var choices: [String]
-    var body: some View {
-        VStack {
-            Text(question)
-            List(choices, id: \.self) { choice in
-                ChoiceRow(toDisplay: choice)
-            }
-        }
-    }
-}
-
-struct YesNoView: View {
-    var body: some View {
-        VStack {
-            HStack {
-                Button(action: {
-                    print("Yes")
-                }) {
-                    Text("Yes")
-                        .fontWeight(.bold)
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .padding(10)
-                        .cornerRadius(/*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
-                }
-                .buttonStyle(DefaultButtonStyle())
-                Spacer()
-                Button(action: {
-                    print("No")
-                }) {
-                    Text("No")
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                        .background(Color.blue
-                            .buttonStyle(/*@START_MENU_TOKEN@*/ /*@PLACEHOLDER=Button Style@*/DefaultButtonStyle()/*@END_MENU_TOKEN@*/))
-                        .foregroundColor(.white)
-                        .padding(10)
-                        .cornerRadius(/*@START_MENU_TOKEN@*/10.0/*@END_MENU_TOKEN@*/)
-                }
-            }
-            Spacer()
-        }
-    }
-}
-
 struct constants {
-    var result1: Int
-    var result2: Int
-    var result3: Bool
-    var result4: Bool
-    var result5: Bool
-    var result6: Bool
-    var result7: Int
-    var result8: Bool
-    var result9: Bool
     let jobs = [
-    "Patient-facing healthcare worker.",
-    "EMS",
-    "Not a patient-facing healthcare worker",
-    "Police officer/firefighter/other first responder",
-    "Resident of SNF, shelter, group home, jail",
-    "Work in common areas of prisons/jails, as bus driver",
-    "Frequent healthcare contact (e.g. dialysis patients, pregnant patients in third trimester)",
-    "Pregnant women at 36 weeks or later",
-    "Preoperative patients.",
-    "Other"];
-    let times = ["Less than 24h", "24-48h", "48h+"];
-    
-}
-
-func askQuestions() {
-    var results_table = constants(result1: 0, result2: 0, result3: false, result4: false, result5: false, result6: false, result7: 0, result8: false, result9: false)
-    results_table.result1 = 3;
-    
+    "Patient-facing HCW or EMS", // T1A
+    "Non patient-facing HCW", // T1B
+    "First responder (police, fire, etc.)", // T1B
+    "Resident of SNF, shelter, group home, jail", // T1B
+    "Work in common areas of prisons/jails, as bus driver", // T1B
+    "Frequent healthcare contact (e.g. dialysis patients, pregnant patients in third trimester)", // T1B
+    "Bus driver/flight attendant", // T1B
+    "Pregnant women at 36 weeks or later", // T1C
+    "Preoperative patients.", // T1C
+    "Caretaker of child less than 6 months of age", // T1D
+    "Other"] // T2
+    let times = ["Less than 24h", "24-48h", "48h+"]
 }
 
 struct q1: View {
-    var results_table: constants
+    var results_table = constants()
+    @State var question = "What does your patient do?"
     var body: some View {
-        OptionsQuestionView(question: "What does your patient do?", choices: results_table.jobs)
+        VStack {
+            Text(question).font(.title).multilineTextAlignment(.center)
+            List {
+                ForEach((1...results_table.jobs.count), id: \.self) { i in
+                    NavigationLink(destination: q2(result1: i)){
+                        Text(self.results_table.jobs[i-1])
+                    }
+                }
+            }
+        }
     }
 }
 
 struct q2: View {
-    var results_table: constants
+    var result1: Int
+    var results_table = constants()
+    @State var question = "How long have symptoms been present?"
     var body: some View {
-        OptionsQuestionView(question: "How long have the symptoms been present?", choices: results_table.times)
+        VStack {
+            Text(question).font(.title).multilineTextAlignment(.center)
+            List {
+                NavigationLink(destination: DoNotTestView()) {
+                  Text(results_table.times[0])
+                }
+                NavigationLink(destination: {
+                    VStack {
+                        if result1 == 1 {
+                            q3(result1: self.result1, result2: 2)
+                        } else {
+                            DoNotTestView()
+                        }
+                    }
+                }()) {
+                    Text(results_table.times[1])
+                }
+                NavigationLink(destination: {
+                    VStack {
+                        if result1 == 8 || result1 == 9 {
+                            q5(result1: self.result1, result2: 3)
+                        } else if result1 == 1 {
+                            q3(result1: self.result1, result2: 3)
+                        } else if result1 == 11 {
+                            q3(result1: self.result1, result2: 3)
+                        } else {
+                            q4(result1: self.result1, result2: 3)
+                        }
+                    }
+                }()) {
+                    Text(results_table.times[2])
+                }
+            }
+        }
     }
 }
 
 struct q3: View {
+    var result1: Int
+    var result2: Int
+    @State var question = "Does the patient have a sore throat, runny nose, or cough?"
     var body: some View {
-        YesNoQuestionView(question: "Does the patient have a sore throat, runny nose, or cough?")
+        // Yes/No View NavigationLinks
+        VStack {
+            Spacer().frame(height:150)
+            Text(question).font(.title).multilineTextAlignment(.center)
+            Spacer().frame(height:250)
+            HStack {
+                NavigationLink(destination: {
+                    VStack {
+                        if result1 == 1 {
+                            TestView()
+                        } else if result1 == 11 {
+                            q9(result1: self.result1, result2: self.result2)
+                        } else {
+                            DoNotTestView()
+                        }
+                    }
+                }()) {
+                    Text("Yes")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25)
+                }
+                Spacer().frame(width: 50)
+                NavigationLink(destination: DoNotTestView()) {
+                    Text("No")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25.0)
+                }
+            }
+        }
     }
 }
 
 struct q4: View {
+    var result1: Int
+    var result2: Int
+    var results_table = constants()
+    @State var question = "Does the patient have a fever? (Subjective/100.4 degrees)"
     var body: some View {
-        YesNoQuestionView(question: "Does the patient have a fever? (Subjective/100.4 degrees)")
+        VStack {
+            Spacer().frame(height:150)
+            Text(question).font(.title).multilineTextAlignment(.center)
+            Spacer().frame(height:250)
+            HStack {
+                NavigationLink(destination: q5(result1: self.result1, result2: self.result2)) {
+                    Text("Yes")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25)
+                }
+                Spacer().frame(width: 50)
+                NavigationLink(destination: DoNotTestView()) {
+                    Text("No")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25.0)
+                }
+            }
+        }
     }
 }
 
 struct q5: View {
+    var result1: Int
+    var result2: Int
+    var results_table = constants()
+    @State var question = "Does the patient have a cough?"
     var body: some View {
-        YesNoQuestionView(question: "Does the patient have a cough?")
+        VStack {
+            Spacer().frame(height:150)
+            Text(question).font(.title).multilineTextAlignment(.center)
+            Spacer().frame(height:250)
+            HStack {
+                NavigationLink(destination: TestView()) {
+                    Text("Yes")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25)
+                }
+                Spacer().frame(width: 50)
+                NavigationLink(destination: {
+                    VStack {
+                        if result1 == 8 || result1 == 9 {
+                            DoNotTestView()
+                        } else {
+                            q6(result5: false)
+                        }
+                    }
+                }()) {
+                    Text("No")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25.0)
+                }
+            }
+        }
     }
 }
 
 struct q6: View {
+    var result5: Bool
+    var results_table = constants()
+    @State var question = "Does the patient have shortness of breath or myalgia?"
     var body: some View {
-        YesNoQuestionView(question: "Does the patient have a shortness of breath or myalgia?")
+        VStack {
+            Spacer().frame(height:150)
+            Text(question).font(.title).multilineTextAlignment(.center)
+            Spacer().frame(height:250)
+            HStack {
+                NavigationLink(destination: TestView()) {
+                    Text("Yes")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25)
+                }
+                Spacer().frame(width: 50)
+                NavigationLink(destination: {
+                    VStack {
+                        if result5 {
+                            TestView()
+                        } else {
+                            DoNotTestView()
+                        }
+                    }
+                }()) {
+                    Text("No")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25.0)
+                }
+            }
+        }
     }
 }
 
-func q7() -> Int {
-    return 65
+struct q7: View {
+    @State var baseAge = "65"
+    var body: some View {
+        VStack {
+            Spacer().frame(height:40)
+            Text("How old is this patient?").font(.title)
+            HStack {
+                TextField("", text: $baseAge)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10.0)
+                    .fixedSize(horizontal: true, vertical: true).frame(width: 100, height: 40)
+            }
+            Spacer().frame(height:40)
+            NavigationLink(destination: {
+                VStack {
+                    if Int(baseAge) ?? 65 >= 65 {
+                        q8(result7: baseAge)
+                    } else {
+                        DoNotTestView()
+                    }
+                }
+            }()) {
+                Text("Continue")
+            }
+        }
+    }
 }
 
 struct q8: View {
+    var result7: String
+    var results_table = constants()
+    @State var question = "Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease, or morbid obesity?"
     var body: some View {
-        YesNoQuestionView(question: "Does the patient have a shortness of breath or myalgia?")
+        VStack {
+            Spacer().frame(height:150)
+            Text(question).font(.title).multilineTextAlignment(.center)
+            Spacer().frame(height:250)
+            HStack {
+                NavigationLink(destination: {
+                    VStack {
+                        if Int(result7) ?? 65 >= 65 {
+                            TestView()
+                        } else {
+                            DoNotTestView()
+                        }
+                    }
+                }()) {
+                    Text("Yes")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25)
+                }
+                Spacer().frame(width: 50)
+                NavigationLink(destination: DoNotTestView()) {
+                    Text("No")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25.0)
+                }
+            }
+        }
     }
 }
 
 struct q9: View {
+    var result1: Int
+    var result2: Int
+    var results_table = constants()
+    @State var question = "Is this patient immunocompromised?"
     var body: some View {
-        YesNoQuestionView(question: "Does the patient have a shortness of breath or myalgia?")
+        VStack {
+            Spacer().frame(height:150)
+            Text(question).font(.title).multilineTextAlignment(.center)
+            Spacer().frame(height:250)
+            HStack {
+                NavigationLink(destination: TestView()) {
+                    Text("Yes")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25)
+                }
+                Spacer().frame(width: 50)
+                NavigationLink(destination: q7()) {
+                    Text("No")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .padding(10)
+                        .cornerRadius(25.0)
+                }
+            }
+        }
     }
 }
