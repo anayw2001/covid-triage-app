@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1286C167242D6828001CCC47 /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1286C166242D6828001CCC47 /* logo.jpg */; };
 		12E00EE1242C51F600A50916 /* DoNotTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E00EE0242C51F600A50916 /* DoNotTestView.swift */; };
 		12E00EE3242C520400A50916 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E00EE2242C520400A50916 /* TestView.swift */; };
 		12E93975242AFA9A0041A038 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E93974242AFA9A0041A038 /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1286C166242D6828001CCC47 /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = logo.jpg; path = ../../../../Downloads/logo.jpg; sourceTree = "<group>"; };
 		12E00EE0242C51F600A50916 /* DoNotTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoNotTestView.swift; sourceTree = "<group>"; };
 		12E00EE2242C520400A50916 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		12E93971242AFA9A0041A038 /* COVID tester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "COVID tester.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +116,7 @@
 				12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */,
 				12E00EE2242C520400A50916 /* TestView.swift */,
 				12E93982242AFA9C0041A038 /* Info.plist */,
+				1286C166242D6828001CCC47 /* logo.jpg */,
 				12E9397C242AFA9C0041A038 /* Preview Content */,
 			);
 			path = "COVID tester";
@@ -249,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1286C167242D6828001CCC47 /* logo.jpg in Resources */,
 				12E93981242AFA9C0041A038 /* LaunchScreen.storyboard in Resources */,
 				12E9397E242AFA9C0041A038 /* Preview Assets.xcassets in Resources */,
 				12E9397B242AFA9C0041A038 /* Assets.xcassets in Resources */,
@@ -445,7 +449,7 @@
 		12E9399C242AFA9C0041A038 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"COVID tester/Preview Content\"";
 				DEVELOPMENT_TEAM = 48S9K7A2M2;
@@ -465,7 +469,7 @@
 		12E9399D242AFA9C0041A038 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"COVID tester/Preview Content\"";
 				DEVELOPMENT_TEAM = 48S9K7A2M2;
