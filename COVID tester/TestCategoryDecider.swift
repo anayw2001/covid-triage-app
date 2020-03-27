@@ -31,7 +31,7 @@ struct q1: View {
     @State var question = "What does your patient do?"
     var body: some View {
         VStack {
-            Text(question).font(.title).multilineTextAlignment(.center)
+            Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
             List {
                 ForEach((1...results_table.jobs.count), id: \.self) { i in
                     NavigationLink(destination: q2(rootIsActive: self.$rootIsActive, result1: i)){
@@ -50,7 +50,7 @@ struct q2: View {
     @State var question = "How long have symptoms been present?"
     var body: some View {
         VStack {
-            Text(question).font(.title).multilineTextAlignment(.center)
+            Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
             List {
                 NavigationLink(destination: DoNotTestView(shouldPopToRoot: $rootIsActive)) {
                   Text(results_table.times[0])
@@ -94,9 +94,9 @@ struct q3: View {
     var body: some View {
         // Yes/No View NavigationLinks
         VStack {
-            Spacer().frame(height:150)
-            Text(question).font(.title).multilineTextAlignment(.center)
-            Spacer().frame(height:250)
+            Spacer().frame(height:50)
+            Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
+            Spacer()
             HStack {
                 NavigationLink(destination: {
                     VStack {
@@ -139,8 +139,8 @@ struct q4: View {
     var body: some View {
         VStack {
             Spacer().frame(height:150)
-            Text(question).font(.title).multilineTextAlignment(.center)
-            Spacer().frame(height:250)
+            Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
+            Spacer()
             HStack {
                 NavigationLink(destination: {
                     VStack {
@@ -181,8 +181,8 @@ struct q5: View {
     var body: some View {
         VStack {
             Spacer().frame(height:150)
-            Text(question).font(.title).multilineTextAlignment(.center)
-            Spacer().frame(height:250)
+            Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
+            Spacer()
             HStack {
                 NavigationLink(destination: TestView(shouldPopToRoot: self.$rootIsActive)) {
                     Text("Yes")
@@ -222,8 +222,8 @@ struct q6: View {
     var body: some View {
         VStack {
             Spacer().frame(height:150)
-            Text(question).font(.title).multilineTextAlignment(.center)
-            Spacer().frame(height:250)
+            Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
+            Spacer()
             HStack {
                 NavigationLink(destination: TestView(shouldPopToRoot: $rootIsActive)) {
                     Text("Yes")
@@ -263,7 +263,7 @@ struct q7: View {
     var body: some View {
         VStack {
             Spacer().frame(height:40)
-            Text("How old is this patient?").font(.title)
+            Text("How old is this patient?").font(.title).padding(.horizontal, 5.0)
             HStack {
                 TextField("", text: $baseAge)
                     .background(Color.gray.opacity(0.2))
@@ -294,8 +294,8 @@ struct q8: View {
     var body: some View {
         VStack {
             Spacer().frame(height:150)
-            Text(question).font(.title).multilineTextAlignment(.center)
-            Spacer().frame(height:250)
+            Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
+            Spacer()
             HStack {
                 NavigationLink(destination: {
                     VStack {
@@ -345,9 +345,9 @@ struct q9: View {
 
     var body: some View {
         VStack {
-            Spacer().frame(height:50)
-            Text(question).font(.title).multilineTextAlignment(.center)
-            Spacer().frame(height:20)
+            Spacer()
+            Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
+            Spacer()
             VStack(alignment: .leading) {
                 ForEach(clarifications, id: \.self) { clarification in
                     Text(clarification + "\n")

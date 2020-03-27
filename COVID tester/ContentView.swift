@@ -13,8 +13,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Let's see if your patient needs testing!").font(.title)
-                Spacer().frame(height: 100)
+                Text("Let's see if your patient needs testing!").font(.title).padding(.horizontal, 15.0)
+                Spacer().frame(height: 50)
                 NavigationLink(destination: q1(rootIsActive: $isActive), isActive: self.$isActive) {
                     VStack {
                         Text("Tap here to begin.")
