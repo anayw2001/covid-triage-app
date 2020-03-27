@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TestView: View {
+    @Binding var shouldPopToRoot: Bool
     var body: some View {
         VStack {
             ZStack {
@@ -17,12 +18,17 @@ struct TestView: View {
                 Rectangle().fill(Color.white).frame(width:25, height: 110).rotationEffect(.degrees(45)).offset(x: 10)
             }
             Text("Test this patient.").bold().font(.system(size: 24))
+            Spacer().frame(height: 100)
+            Button(action: {
+                self.shouldPopToRoot = false
+            }) {
+                Text("Run another test")
+                    .font(.title)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(40)
+            }
         }
-    }
-}
-
-struct TestView_Previews: PreviewProvider {
-    static var previews: some View {
-        TestView()
     }
 }

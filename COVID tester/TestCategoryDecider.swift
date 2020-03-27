@@ -26,6 +26,7 @@ struct constants {
 }
 
 struct q1: View {
+    @Binding var rootIsActive: Bool
     var results_table = constants()
     @State var question = "What does your patient do?"
     var body: some View {
@@ -33,9 +34,9 @@ struct q1: View {
             Text(question).font(.title).multilineTextAlignment(.center)
             List {
                 ForEach((1...results_table.jobs.count), id: \.self) { i in
-                    NavigationLink(destination: q2(result1: i)){
+                    NavigationLink(destination: q2(rootIsActive: self.$rootIsActive, result1: i)){
                         Text(self.results_table.jobs[i-1])
-                    }
+                    }.isDetailLink(false)
                 }
             }
         }
@@ -43,6 +44,7 @@ struct q1: View {
 }
 
 struct q2: View {
+    @Binding var rootIsActive: Bool
     var result1: Int
     var results_table = constants()
     @State var question = "How long have symptoms been present?"
@@ -50,41 +52,42 @@ struct q2: View {
         VStack {
             Text(question).font(.title).multilineTextAlignment(.center)
             List {
-                NavigationLink(destination: DoNotTestView()) {
+                NavigationLink(destination: DoNotTestView(shouldPopToRoot: $rootIsActive)) {
                   Text(results_table.times[0])
-                }
+                }.isDetailLink(false)
                 NavigationLink(destination: {
                     VStack {
                         if result1 == 1 || result1 == 10 {
-                            q3(result1: self.result1, result2: 2)
+                            q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 2)
                         } else {
-                            DoNotTestView()
+                            DoNotTestView(shouldPopToRoot: $rootIsActive)
                         }
                     }
                 }()) {
                     Text(results_table.times[1])
-                }
+                }.isDetailLink(false)
                 NavigationLink(destination: {
                     VStack {
                         if result1 == 8 || result1 == 9 { // t1c
-                            q5(result1: self.result1, result2: 3)
+                            q5(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
                         } else if result1 == 1 { // t1a
-                            q3(result1: self.result1, result2: 3)
+                            q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
                         } else if result1 == 10 { // t1d
-                            q3(result1: self.result1, result2: 3)
+                            q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
                         } else { // t1b/t2
-                            q4(result1: self.result1, result2: 3)
+                            q4(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
                         }
                     }
                 }()) {
                     Text(results_table.times[2])
-                }
+                }.isDetailLink(false)
             }
         }
     }
 }
 
 struct q3: View {
+    @Binding var rootIsActive: Bool
     var result1: Int
     var result2: Int
     @State var question = "Does the patient have a sore throat, runny nose, or cough?"
@@ -98,11 +101,11 @@ struct q3: View {
                 NavigationLink(destination: {
                     VStack {
                         if result1 == 1 || result1 == 10 {
-                            TestView()
+                            TestView(shouldPopToRoot: $rootIsActive)
                         } else if result1 == 11 {
-                            q9(result1: self.result1, result2: self.result2)
+                            q9(rootIsActive: self.$rootIsActive, result1: self.result1, result2: self.result2)
                         } else {
-                            DoNotTestView()
+                            DoNotTestView(shouldPopToRoot: $rootIsActive)
                         }
                     }
                 }()) {
@@ -112,22 +115,23 @@ struct q3: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                }
+                }.isDetailLink(false)
                 Spacer().frame(width: 50)
-                NavigationLink(destination: DoNotTestView()) {
+                NavigationLink(destination: DoNotTestView(shouldPopToRoot: $rootIsActive)) {
                     Text("No")
                         .font(.title)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                }
+                }.isDetailLink(false)
             }
         }
     }
 }
 
 struct q4: View {
+    @Binding var rootIsActive: Bool
     var result1: Int
     var result2: Int
     var results_table = constants()
@@ -141,9 +145,9 @@ struct q4: View {
                 NavigationLink(destination: {
                     VStack {
                         if (result1 == 11) {
-                            q3(result1: self.result1, result2: self.result2)
+                            q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: self.result2)
                         } else {
-                            q5(result1: self.result1, result2: self.result2)
+                            q5(rootIsActive: self.$rootIsActive, result1: self.result1, result2: self.result2)
                         }
                     }
                 }()) {
@@ -153,22 +157,23 @@ struct q4: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                }
+                }.isDetailLink(false)
                 Spacer().frame(width: 50)
-                NavigationLink(destination: DoNotTestView()) {
+                NavigationLink(destination: DoNotTestView(shouldPopToRoot: $rootIsActive)) {
                     Text("No")
                         .font(.title)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                }
+                }.isDetailLink(false)
             }
         }
     }
 }
 
 struct q5: View {
+    @Binding var rootIsActive: Bool
     var result1: Int
     var result2: Int
     var results_table = constants()
@@ -179,21 +184,21 @@ struct q5: View {
             Text(question).font(.title).multilineTextAlignment(.center)
             Spacer().frame(height:250)
             HStack {
-                NavigationLink(destination: TestView()) {
+                NavigationLink(destination: TestView(shouldPopToRoot: self.$rootIsActive)) {
                     Text("Yes")
                         .font(.title)
                         .padding()
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                }
+                }.isDetailLink(false)
                 Spacer().frame(width: 50)
                 NavigationLink(destination: {
                     VStack {
                         if result1 == 8 || result1 == 9 {
-                            DoNotTestView()
+                            DoNotTestView(shouldPopToRoot: $rootIsActive)
                         } else {
-                            q6(result5: false)
+                            q6(rootIsActive: self.$rootIsActive, result5: false)
                         }
                     }
                 }()) {
@@ -203,13 +208,14 @@ struct q5: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .padding(10)
-                }
+                }.isDetailLink(false)
             }
         }
     }
 }
 
 struct q6: View {
+    @Binding var rootIsActive: Bool
     var result5: Bool
     var results_table = constants()
     @State var question = "Does the patient have shortness of breath or myalgia?"
@@ -219,7 +225,7 @@ struct q6: View {
             Text(question).font(.title).multilineTextAlignment(.center)
             Spacer().frame(height:250)
             HStack {
-                NavigationLink(destination: TestView()) {
+                NavigationLink(destination: TestView(shouldPopToRoot: $rootIsActive)) {
                     Text("Yes")
                         .font(.title)
                         .padding()
@@ -227,14 +233,14 @@ struct q6: View {
                         .foregroundColor(.white)
                         .padding(10)
                         .cornerRadius(25)
-                }
+                }.isDetailLink(false)
                 Spacer().frame(width: 50)
                 NavigationLink(destination: {
                     VStack {
                         if result5 {
-                            TestView()
+                            TestView(shouldPopToRoot: $rootIsActive)
                         } else {
-                            DoNotTestView()
+                            DoNotTestView(shouldPopToRoot: $rootIsActive)
                         }
                     }
                 }()) {
@@ -245,13 +251,14 @@ struct q6: View {
                         .foregroundColor(.white)
                         .padding(10)
                         .cornerRadius(25.0)
-                }
+                }.isDetailLink(false)
             }
         }
     }
 }
 
 struct q7: View {
+    @Binding var rootIsActive: Bool
     @State var baseAge = "65"
     var body: some View {
         VStack {
@@ -267,19 +274,20 @@ struct q7: View {
             NavigationLink(destination: {
                 VStack {
                     if Int(baseAge) ?? 65 >= 65 {
-                        q8(result7: baseAge)
+                        q8(rootIsActive: self.$rootIsActive, result7: baseAge)
                     } else {
-                        DoNotTestView()
+                        DoNotTestView(shouldPopToRoot: $rootIsActive)
                     }
                 }
             }()) {
                 Text("Continue")
-            }
+            }.isDetailLink(false)
         }
     }
 }
 
 struct q8: View {
+    @Binding var rootIsActive: Bool
     var result7: String
     var results_table = constants()
     @State var question = "Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease, or morbid obesity?"
@@ -292,9 +300,9 @@ struct q8: View {
                 NavigationLink(destination: {
                     VStack {
                         if Int(result7) ?? 65 >= 65 {
-                            TestView()
+                            TestView(shouldPopToRoot: $rootIsActive)
                         } else {
-                            DoNotTestView()
+                            DoNotTestView(shouldPopToRoot: $rootIsActive)
                         }
                     }
                 }()) {
@@ -305,9 +313,9 @@ struct q8: View {
                         .foregroundColor(.white)
                         .padding(10)
                         .cornerRadius(25)
-                }
+                }.isDetailLink(false)
                 Spacer().frame(width: 50)
-                NavigationLink(destination: DoNotTestView()) {
+                NavigationLink(destination: DoNotTestView(shouldPopToRoot: $rootIsActive)) {
                     Text("No")
                         .font(.title)
                         .padding()
@@ -315,13 +323,14 @@ struct q8: View {
                         .foregroundColor(.white)
                         .padding(10)
                         .cornerRadius(25.0)
-                }
+                }.isDetailLink(false)
             }
         }
     }
 }
 
 struct q9: View {
+    @Binding var rootIsActive: Bool
     var result1: Int
     var result2: Int
     var results_table = constants()
@@ -347,7 +356,7 @@ struct q9: View {
             .padding(.horizontal, 15.0)
             Spacer()
             HStack {
-                NavigationLink(destination: TestView()) {
+                NavigationLink(destination: TestView(shouldPopToRoot: self.$rootIsActive)) {
                     Text("Yes")
                         .font(.title)
                         .padding()
@@ -355,9 +364,9 @@ struct q9: View {
                         .foregroundColor(.white)
                         .padding(10)
                         .cornerRadius(25)
-                }
+                }.isDetailLink(false)
                 Spacer().frame(width: 50)
-                NavigationLink(destination: q7()) {
+                NavigationLink(destination: q7(rootIsActive: self.$rootIsActive)) {
                     Text("No")
                         .font(.title)
                         .padding()
@@ -365,7 +374,7 @@ struct q9: View {
                         .foregroundColor(.white)
                         .padding(10)
                         .cornerRadius(25.0)
-                }
+                }.isDetailLink(false)
             }
         }
     }
