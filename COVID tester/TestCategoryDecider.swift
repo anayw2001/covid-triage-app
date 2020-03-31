@@ -267,22 +267,26 @@ struct q6: View {
 
 struct q7: View {
     @Binding var rootIsActive: Bool
-    @State var baseAge = "65"
+    @State var baseAge = 64
     var body: some View {
         VStack {
             Spacer().frame(height:40)
             Text("How old is this patient?").font(.title).padding(.horizontal, 5.0)
-            HStack {
-                TextField("", text: $baseAge)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10.0)
-                    .fixedSize(horizontal: true, vertical: true).frame(width: 100, height: 40)
+            VStack {
+                HStack {
+                    Spacer()
+                    Picker(selection: $baseAge, label: Text("Age")) {
+                        ForEach(1 ..< 100) {
+                            Text(String($0))
+                        }
+                    }.pickerStyle(WheelPickerStyle())
+                }
             }
             Spacer().frame(height:40)
             NavigationLink(destination: {
                 VStack {
-                    if Int(baseAge) ?? 65 >= 65 {
-                        q8(rootIsActive: self.$rootIsActive, result7: baseAge)
+                    if baseAge >= 65 {
+                        q8(rootIsActive: self.$rootIsActive, result7: String(baseAge))
                     } else {
                         DoNotTestView(shouldPopToRoot: $rootIsActive)
                     }
