@@ -10,32 +10,39 @@ import Foundation
 import SwiftUI
 
 struct constants {
+    let tier1a = [1]
+    let tier1b = [2, 3, 4, 5, 6, 7, 8]
+    let tier1c = [9, 10, 11]
+    let tier1d = [12]
+    let tier2 = [13]
     let jobs = [
-    "Patient-facing HCW or EMS", // T1A
-    "Non patient-facing HCW", // T1B
-    "First responder (police, fire, etc.)", // T1B
-    "Resident of SNF, shelter, group home, jail", // T1B
-    "Work in common areas of prisons/jails, as bus driver", // T1B
-    "Frequent healthcare contact (e.g. dialysis patients, pregnant patients in third trimester)", // T1B
-    "Bus driver/flight attendant", // T1B
-    "Pregnant women at 36 weeks or later", // T1C
-    "Preoperative patients.", // T1C
-    "Caretaker of child less than 6 months of age", // T1D
-    "Other"] // T2
+    "Patient-facing HCW or EMS or Firefighter", // T1A 0
+    "Non patient-facing HCW/Medical EVS", // T1B 1
+    "Police", // T1B 2
+    "Resident of SNF, shelter, group home, jail", // T1B 3
+    "Work in common areas of prisons/jails, as bus driver", // T1B 4
+    "Frequent healthcare contact (e.g. dialysis patients, pregnant patients in third trimester)", // T1B 5
+    "Bus driver/flight attendant, school/daycare teachers, postal workers", // T1B 6
+    "Pregnant women over 24 weeks (not in labor, not being induced)", // T1B 7
+    "Pregnant women at 36 weeks or later", // T1C 8
+    "Preoperative patients.", // T1C 9
+    "Dialysis patients.", // T1C 10
+    "Caretaker of child less than 6 months of age", // T1D 11
+    "Other"] // T2 12
     let times = ["Less than 24h", "24-48h", "48h+"]
 }
 
 struct q1: View {
     @Binding var rootIsActive: Bool
-    var results_table = constants()
+    var constants_table = constants()
     @State var question = "What does your patient do?"
     var body: some View {
         VStack {
             Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
             List {
-                ForEach((1...results_table.jobs.count), id: \.self) { i in
+                ForEach((1...constants_table.jobs.count), id: \.self) { i in
                     NavigationLink(destination: q2(rootIsActive: self.$rootIsActive, result1: i)){
-                        Text(self.results_table.jobs[i-1])
+                        Text(self.constants_table.jobs[i-1])
                     }.isDetailLink(false)
                 }
             }
@@ -46,40 +53,40 @@ struct q1: View {
 struct q2: View {
     @Binding var rootIsActive: Bool
     var result1: Int
-    var results_table = constants()
+    var constants_table = constants()
     @State var question = "How long have symptoms been present?"
     var body: some View {
         VStack {
             Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
             List {
                 NavigationLink(destination: DoNotTestView(shouldPopToRoot: $rootIsActive)) {
-                  Text(results_table.times[0])
+                  Text(constants_table.times[0])
                 }.isDetailLink(false)
                 NavigationLink(destination: {
                     VStack {
-                        if result1 == 1 || result1 == 10 {
+                        if constants_table.tier1a.contains(result1) || constants_table.tier1d.contains(result1) {
                             q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 2)
                         } else {
                             DoNotTestView(shouldPopToRoot: $rootIsActive)
                         }
                     }
                 }()) {
-                    Text(results_table.times[1])
+                    Text(constants_table.times[1])
                 }.isDetailLink(false)
                 NavigationLink(destination: {
                     VStack {
-                        if result1 == 8 || result1 == 9 { // t1c
+                        if constants_table.tier1c.contains(result1) { // t1c
                             q5(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
-                        } else if result1 == 1 { // t1a
+                        } else if constants_table.tier1a.contains(result1) { // t1a
                             q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
-                        } else if result1 == 10 { // t1d
+                        } else if constants_table.tier1d.contains(result1) { // t1d
                             q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
                         } else { // t1b/t2
                             q4(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
                         }
                     }
                 }()) {
-                    Text(results_table.times[2])
+                    Text(constants_table.times[2])
                 }.isDetailLink(false)
             }
         }
@@ -90,6 +97,7 @@ struct q3: View {
     @Binding var rootIsActive: Bool
     var result1: Int
     var result2: Int
+    var constants_table = constants()
     @State var question = "Does the patient have a sore throat, runny nose, or cough?"
     var body: some View {
         // Yes/No View NavigationLinks
@@ -100,9 +108,9 @@ struct q3: View {
             HStack {
                 NavigationLink(destination: {
                     VStack {
-                        if result1 == 1 || result1 == 10 {
+                        if constants_table.tier1a.contains(result1) || constants_table.tier1d.contains(result1) {
                             TestView(shouldPopToRoot: $rootIsActive)
-                        } else if result1 == 11 {
+                        } else if constants_table.tier2.contains(result1) {
                             q9(rootIsActive: self.$rootIsActive, result1: self.result1, result2: self.result2)
                         } else {
                             DoNotTestView(shouldPopToRoot: $rootIsActive)
@@ -134,7 +142,7 @@ struct q4: View {
     @Binding var rootIsActive: Bool
     var result1: Int
     var result2: Int
-    var results_table = constants()
+    var constants_table = constants()
     @State var question = "Does the patient have a fever? (Subjective/100.4 degrees)"
     var body: some View {
         VStack {
@@ -144,7 +152,7 @@ struct q4: View {
             HStack {
                 NavigationLink(destination: {
                     VStack {
-                        if (result1 == 11) {
+                        if constants_table.tier2.contains(result1) {
                             q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: self.result2)
                         } else {
                             q5(rootIsActive: self.$rootIsActive, result1: self.result1, result2: self.result2)
@@ -176,7 +184,7 @@ struct q5: View {
     @Binding var rootIsActive: Bool
     var result1: Int
     var result2: Int
-    var results_table = constants()
+    var constants_table = constants()
     @State var question = "Does the patient have a cough?"
     var body: some View {
         VStack {
@@ -195,7 +203,7 @@ struct q5: View {
                 Spacer().frame(width: 50)
                 NavigationLink(destination: {
                     VStack {
-                        if result1 == 8 || result1 == 9 {
+                        if constants_table.tier1c.contains(result1) {
                             DoNotTestView(shouldPopToRoot: $rootIsActive)
                         } else {
                             q6(rootIsActive: self.$rootIsActive, result5: false)
@@ -217,7 +225,7 @@ struct q5: View {
 struct q6: View {
     @Binding var rootIsActive: Bool
     var result5: Bool
-    var results_table = constants()
+    var constants_table = constants()
     @State var question = "Does the patient have shortness of breath or myalgia?"
     var body: some View {
         VStack {
@@ -289,7 +297,7 @@ struct q7: View {
 struct q8: View {
     @Binding var rootIsActive: Bool
     var result7: String
-    var results_table = constants()
+    var constants_table = constants()
     @State var question = "Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease, or morbid obesity?"
     var body: some View {
         VStack {
@@ -333,7 +341,7 @@ struct q9: View {
     @Binding var rootIsActive: Bool
     var result1: Int
     var result2: Int
-    var results_table = constants()
+    var constants_table = constants()
     @State var question = "Is this patient immunocompromised?"
     @State var clarifications = ["-Steroids >20mg (or > 0.5mg/kg/day in pediatrics) for > 2 weeks",
     "-On biologics or other steroid sparing immunomodulators (other than Plaquenil)",

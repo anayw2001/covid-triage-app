@@ -18,7 +18,7 @@
 		12E9398C242AFA9C0041A038 /* COVID_testerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E9398B242AFA9C0041A038 /* COVID_testerTests.swift */; };
 		12E93997242AFA9C0041A038 /* COVID_testerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E93996242AFA9C0041A038 /* COVID_testerUITests.swift */; };
 		12E939A5242AFAE60041A038 /* TestCategoryDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */; };
-		4C69E5D92433ED1600F64BEA /* HealthCareInterventionGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C69E5D82433ED1600F64BEA /* HealthCareInterventionGrid.swift */; };
+		4C6BCD6A2433F264009767F8 /* HealthCareIsolationGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6BCD692433F264009767F8 /* HealthCareIsolationGrid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,7 @@
 		12E93996242AFA9C0041A038 /* COVID_testerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COVID_testerUITests.swift; sourceTree = "<group>"; };
 		12E93998242AFA9C0041A038 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCategoryDecider.swift; sourceTree = "<group>"; };
-		4C69E5D82433ED1600F64BEA /* HealthCareInterventionGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCareInterventionGrid.swift; sourceTree = "<group>"; };
+		4C6BCD692433F264009767F8 /* HealthCareIsolationGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCareIsolationGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +114,7 @@
 				12E9397F242AFA9C0041A038 /* LaunchScreen.storyboard */,
 				12E00EE0242C51F600A50916 /* DoNotTestView.swift */,
 				12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */,
-				4C69E5D82433ED1600F64BEA /* HealthCareInterventionGrid.swift */,
+				4C6BCD692433F264009767F8 /* HealthCareIsolationGrid.swift */,
 				12E00EE2242C520400A50916 /* TestView.swift */,
 				12E93982242AFA9C0041A038 /* Info.plist */,
 				12E9397C242AFA9C0041A038 /* Preview Content */,
@@ -281,9 +281,9 @@
 			files = (
 				12E00EE3242C520400A50916 /* TestView.swift in Sources */,
 				12E93975242AFA9A0041A038 /* AppDelegate.swift in Sources */,
+				4C6BCD6A2433F264009767F8 /* HealthCareIsolationGrid.swift in Sources */,
 				12E93977242AFA9A0041A038 /* SceneDelegate.swift in Sources */,
 				12E939A5242AFAE60041A038 /* TestCategoryDecider.swift in Sources */,
-				4C69E5D92433ED1600F64BEA /* HealthCareInterventionGrid.swift in Sources */,
 				12E93979242AFA9A0041A038 /* ContentView.swift in Sources */,
 				12E00EE1242C51F600A50916 /* DoNotTestView.swift in Sources */,
 			);
