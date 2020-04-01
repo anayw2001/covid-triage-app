@@ -275,7 +275,7 @@ struct q7: View {
             VStack {
                 HStack {
                     Spacer()
-                    Picker(selection: $baseAge, label: Text("Age")) {
+                    Picker(selection: $baseAge, label: Text("")) {
                         ForEach(1 ..< 100) {
                             Text(String($0))
                         }
