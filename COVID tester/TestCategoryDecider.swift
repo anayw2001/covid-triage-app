@@ -11,14 +11,13 @@ import SwiftUI
 
 struct constants {
     let tier1a = [1]
-    let tier1b = [2, 3, 4, 5, 6, 7, 8]
-    let tier1c = [9, 10, 11]
-    let tier1d = [12]
-    let tier2 = [13]
+    let tier1b = [2, 3, 4, 5, 6, 7]
+    let tier1c = [8, 9, 10]
+    let tier1d = [11]
+    let tier2 = [12]
     let jobs = [
-    "Patient-facing HCW or EMS or Firefighter", // T1A 0
-    "Non patient-facing HCW/Medical EVS", // T1B 1
-    "Police", // T1B 2
+    "Patient-facing HCW or EMS or Non EMS First Responders (Police or Fire)", // T1A 0
+    "Non patient-facing HCW/Medical facility EVS", // T1B 1
     "Resident of SNF, shelter, group home, jail", // T1B 3
     "Work in common areas of prisons/jails, as bus driver", // T1B 4
     "Frequent healthcare contact (e.g. dialysis patients, pregnant patients in third trimester)", // T1B 5
@@ -35,7 +34,7 @@ struct constants {
 struct q1: View {
     @Binding var rootIsActive: Bool
     var constants_table = constants()
-    @State var question = "What does your patient do?"
+    @State var question = "What is your patients occupation?"
     var body: some View {
         VStack {
             Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
@@ -143,7 +142,7 @@ struct q4: View {
     var result1: Int
     var result2: Int
     var constants_table = constants()
-    @State var question = "Does the patient have a fever? (Subjective/100.4 degrees)"
+    @State var question = "Does the patient have a fever? (Subjective/100.4 degrees/night sweats/chills)"
     var body: some View {
         VStack {
             Spacer().frame(height:150)
@@ -226,7 +225,7 @@ struct q6: View {
     @Binding var rootIsActive: Bool
     var result5: Bool
     var constants_table = constants()
-    @State var question = "Does the patient have shortness of breath or myalgia?"
+    @State var question = "Does the patient have SOB or myalgias?"
     var body: some View {
         VStack {
             Spacer().frame(height:150)
@@ -271,7 +270,7 @@ struct q7: View {
     var body: some View {
         VStack {
             Spacer().frame(height:40)
-            Text("How old is this patient?").font(.title).padding(.horizontal, 5.0)
+            Text("How old is the patient?").font(.title).padding(.horizontal, 5.0)
             VStack {
                 HStack {
                     Spacer()
@@ -302,7 +301,7 @@ struct q8: View {
     @Binding var rootIsActive: Bool
     var result7: String
     var constants_table = constants()
-    @State var question = "Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease, or morbid obesity?"
+    @State var question = "Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease CAD or CHF), or morbid obesity?"
     var body: some View {
         VStack {
             Spacer().frame(height:150)
