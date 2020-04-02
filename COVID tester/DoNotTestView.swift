@@ -17,7 +17,7 @@ struct DoNotTestView: View {
                 Rectangle().fill(Color.white).frame(width:25, height: 110).rotationEffect(.degrees(-45))
                 Rectangle().fill(Color.white).frame(width:25, height: 110).rotationEffect(.degrees(45))
             }
-            Text("Do not test this patient.").bold().font(.system(size: 24))
+            Text("Test is NOT indicated at this time per current guidelines.").bold().font(.system(size: 24))
             Spacer().frame(height: 100)
             Button(action: {
                 self.shouldPopToRoot = false
