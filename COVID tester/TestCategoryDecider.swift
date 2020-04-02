@@ -41,7 +41,7 @@ struct q1: View {
             Text(question).font(.title).multilineTextAlignment(.center).padding(.horizontal, 5.0)
             List {
                 ForEach((1...constants_table.jobs.count), id: \.self) { i in
-                    NavigationLink(destination: q2(rootIsActive: self.$rootIsActive, result1: i)){
+                    NavigationLink(destination: LazyView(q2(rootIsActive: self.$rootIsActive, result1: i))){
                         Text(self.constants_table.jobs[i-1])
                     }.isDetailLink(false)
                 }
@@ -65,7 +65,7 @@ struct q2: View {
                 NavigationLink(destination: {
                     VStack {
                         if constants_table.tier1a.contains(result1) || constants_table.tier1d.contains(result1) {
-                            q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 2)
+                            LazyView(q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 2))
                         } else {
                             DoNotTestView(shouldPopToRoot: $rootIsActive)
                         }
@@ -76,13 +76,13 @@ struct q2: View {
                 NavigationLink(destination: {
                     VStack {
                         if constants_table.tier1c.contains(result1) { // t1c
-                            q5(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
+                            LazyView(q5(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3))
                         } else if constants_table.tier1a.contains(result1) { // t1a
-                            q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
+                            LazyView(q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3))
                         } else if constants_table.tier1d.contains(result1) { // t1d
-                            q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
+                            LazyView(q3(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3))
                         } else { // t1b/t2
-                            q4(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3)
+                            LazyView(q4(rootIsActive: self.$rootIsActive, result1: self.result1, result2: 3))
                         }
                     }
                 }()) {

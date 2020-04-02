@@ -8,17 +8,40 @@
 
 import SwiftUI
 
+struct LazyView<Content: View>: View {
+    let build: () -> Content
+    init(_ build: @autoclosure @escaping () -> Content) {
+        self.build = build
+    }
+    var body: Content {
+        build()
+    }
+}
+
 struct ContentView: View {
-    @State var isActive : Bool = false
+    @State var isActiveTest : Bool = false
+    @State var isActiveIsolation : Bool = false
     var body: some View {
         NavigationView {
             VStack {
                 Text("Let's see if your patient needs testing!").font(.title).padding(.horizontal, 15.0)
                 Spacer().frame(height: 50)
-                NavigationLink(destination: q1(rootIsActive: $isActive), isActive: self.$isActive) {
+                NavigationLink(destination: q1(rootIsActive: $isActiveTest), isActive: self.$isActiveTest) {
                     VStack {
-                        Text("Tap here to begin.")
+                        Text("Tap here to begin testing.")
                             .font(.title)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(40)
+                    }
+                }
+                Spacer().frame(height: 50)
+                NavigationLink(destination: IsolationGridQuestion(rootIsActive: $isActiveIsolation), isActive: self.$isActiveIsolation) {
+                    VStack {
+                        Text("Tap here to access the isolation grid.")
+                            .font(.title)
+                            .multilineTextAlignment(.center)
                             .padding()
                             .background(Color.blue)
                             .foregroundColor(.white)
