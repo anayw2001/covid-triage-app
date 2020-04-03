@@ -19,6 +19,9 @@
 		12E93997242AFA9C0041A038 /* COVID_testerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E93996242AFA9C0041A038 /* COVID_testerUITests.swift */; };
 		12E939A5242AFAE60041A038 /* TestCategoryDecider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */; };
 		4CDCE86F24355D4600A8A505 /* IsolationGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDCE86E24355D4600A8A505 /* IsolationGrid.swift */; };
+		4CDCE87124369B1200A8A505 /* NonHCWQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDCE87024369B1200A8A505 /* NonHCWQuestions.swift */; };
+		4CDCE87324369B4E00A8A505 /* HCWQuestions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDCE87224369B4E00A8A505 /* HCWQuestions.swift */; };
+		4CDCE8752436A0F300A8A505 /* HCWManagementGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CDCE8742436A0F300A8A505 /* HCWManagementGrid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,9 @@
 		12E93998242AFA9C0041A038 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCategoryDecider.swift; sourceTree = "<group>"; };
 		4CDCE86E24355D4600A8A505 /* IsolationGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsolationGrid.swift; sourceTree = "<group>"; };
+		4CDCE87024369B1200A8A505 /* NonHCWQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonHCWQuestions.swift; sourceTree = "<group>"; };
+		4CDCE87224369B4E00A8A505 /* HCWQuestions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCWQuestions.swift; sourceTree = "<group>"; };
+		4CDCE8742436A0F300A8A505 /* HCWManagementGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCWManagementGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +122,10 @@
 				12E939A4242AFAE60041A038 /* TestCategoryDecider.swift */,
 				12E00EE2242C520400A50916 /* TestView.swift */,
 				4CDCE86E24355D4600A8A505 /* IsolationGrid.swift */,
+				4CDCE8742436A0F300A8A505 /* HCWManagementGrid.swift */,
 				12E93982242AFA9C0041A038 /* Info.plist */,
+				4CDCE87224369B4E00A8A505 /* HCWQuestions.swift */,
+				4CDCE87024369B1200A8A505 /* NonHCWQuestions.swift */,
 				12E9397C242AFA9C0041A038 /* Preview Content */,
 			);
 			path = "COVID tester";
@@ -279,11 +288,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CDCE87124369B1200A8A505 /* NonHCWQuestions.swift in Sources */,
 				12E00EE3242C520400A50916 /* TestView.swift in Sources */,
+				4CDCE87324369B4E00A8A505 /* HCWQuestions.swift in Sources */,
 				12E93975242AFA9A0041A038 /* AppDelegate.swift in Sources */,
 				12E93977242AFA9A0041A038 /* SceneDelegate.swift in Sources */,
 				12E939A5242AFAE60041A038 /* TestCategoryDecider.swift in Sources */,
 				12E93979242AFA9A0041A038 /* ContentView.swift in Sources */,
+				4CDCE8752436A0F300A8A505 /* HCWManagementGrid.swift in Sources */,
 				4CDCE86F24355D4600A8A505 /* IsolationGrid.swift in Sources */,
 				12E00EE1242C51F600A50916 /* DoNotTestView.swift in Sources */,
 			);

@@ -48,6 +48,8 @@ struct ContentView: View {
                             .cornerRadius(40)
                     }
                 }
+                Spacer()
+                Text("Guidelines from 4/2/20")
             }
         }
     }
