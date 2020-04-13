@@ -11,12 +11,29 @@ class DoNotTestView extends StatelessWidget {
         height: 500.0,
         width: 500.0,
         // alignment: FractionalOffset.center,
-        child: new Stack(
-          alignment: AlignmentDirectional.center,
+        child: Column(
           children: <Widget>[
-            new Circle(Colors.red),
+            new Stack(
+              alignment: AlignmentDirectional.center,
+              children: <Widget>[
+                new Circle(Colors.red),
+                Icon(
+                  Icons.clear,
+                  color: Colors.white,
+                  size: 200.0
+                )
+              ],
+            ),
+            Text("Do not test this patient, according to current guidelines."),
+            Spacer(),
+            RaisedButton(
+              child: Text("Go back to main screen"),
+              onPressed: () {
+                Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
+              },
+            )
           ],
-        ),
+        )
       ),
     );
   }
