@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import "TierUtilities.dart";
 
 class TestView extends StatelessWidget {
+  int result1;
+  TestView(this.result1);
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -29,6 +32,9 @@ class TestView extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text("Test this patient, according to current guidelines.",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center),
+            Text("This patient is Tier " + which_tier(result1) + ".",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center),
             Spacer(),

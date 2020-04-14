@@ -2,33 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'DoNotTestView.dart';
 import 'TestView.dart';
+import 'TierUtilities.dart';
 
-class StrConstants {
-  List<int> tier1a = [1];
-  List<int> tier1b = [2, 3, 4, 5, 6, 7];
-  List<int> tier1c = [8, 9, 10];
-  List<int> tier1d = [11];
-  List<int> tier2 = [12];
-  List<String> jobs = [
-    "Patient-facing HCW or EMS or Non EMS First Responders (Police or Fire)", // T1A 0
-    "Non patient-facing HCW/Medical facility EVS", // T1B 1
-    "Resident of SNF, shelter, group home, jail", // T1B 3
-    "Work in common areas of prisons/jails, as bus driver", // T1B 4
-    "Frequent healthcare contact (e.g. dialysis patients, pregnant patients in third trimester)", // T1B 5
-    "Bus driver/flight attendant, school/daycare teachers, postal workers", // T1B 6
-    "Pregnant women over 24 weeks (not in labor, not being induced)", // T1B 7
-    "Pregnant women at 36 weeks or later", // T1C 8
-    "Preoperative patients.", // T1C 9
-    "Dialysis patients.", // T1C 10
-    "Caretaker of child less than 6 months of age", // T1D 11
-    "Other"]; // T2 12
-  List<String> times = ["Less than 24h", "24-48h", "48h+"];
-}
 class QuestionOne extends StatelessWidget {
-  List<String> jobs_table = StrConstants().jobs;
+  List<String> jobs_table = TierConstants().jobs;
   @override Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
         title: Text(""),
         backgroundColor: Colors.white,
       ),
@@ -37,7 +20,7 @@ class QuestionOne extends StatelessWidget {
           child: Column(
             children: <Widget>[
               SizedBox(height: 10),
-              Text("What is your patient?", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
+              Text("Choose the option that most accurately describes your patient.", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0), textAlign: TextAlign.center),
               SizedBox(height: 10),
               Expanded(
                 child: ListView.builder(
@@ -63,9 +46,9 @@ class QuestionOne extends StatelessWidget {
 class QuestionTwo extends StatelessWidget {
   int result1;
   QuestionTwo(this.result1);
-  List<String> time_table = StrConstants().times;
+  List<String> time_table = TierConstants().times;
   Widget get_destination_one() {
-    if (is_tier1a(this.result1) || is_tier1d(this.result1)) {
+    if (is_tier1a(this.result1) || is_tier2b(this.result1)) {
       return QuestionThree(result1, 2);
     } else {
       return DoNotTestView();
@@ -73,17 +56,29 @@ class QuestionTwo extends StatelessWidget {
   }
 
   Widget get_destination_two() {
-    if (is_tier1c(result1)) { // t1c
+    if (is_tier1c(result1) || is_tier2a(result1)) { // t1c
       return QuestionFive(result1, 3);
-    } else if (is_tier1a(result1) || is_tier1d(result1)) { // t1a/t1d
+    } else if (is_tier1a(result1) || is_tier2b(result1)) {
       return QuestionThree(result1, 3);
     } else { // t1b/t2
       return QuestionFour(result1, 3);
     }
   }
+
+  Widget get_destination_three() {
+    if (is_tier2c(result1)) { // t1c
+      return TestView(result1);
+    } else { // t1b/t2
+      return DoNotTestView();
+    }
+  }
+
   @override Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
         title: Text(""),
         backgroundColor: Colors.white,
       ),
@@ -117,6 +112,12 @@ class QuestionTwo extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => get_destination_two()));
                     },
                   ),
+                  ListTile(
+                    title: Text(time_table[3]),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => get_destination_three()));
+                    },
+                  ),
                 ],
               ),
             ],
@@ -132,10 +133,18 @@ class QuestionThree extends StatelessWidget {
   int result2;
   QuestionThree(this.result1, this.result2);
   Widget get_positive_destination() {
-    if (is_tier1a(result1) || is_tier1d(result1)) {
-      return TestView();
-    } else if (is_tier2(result1)) {
+    if (is_tier1a(result1) || is_tier2b(result1)) {
+      return TestView(result1);
+    } else if (is_tier3(result1)) {
       return QuestionNine(result1, result2);
+    } else {
+      return DoNotTestView();
+    }
+  }
+
+  Widget get_negative_destination() {
+    if (is_tier2b(result1)) {
+      return QuestionFour(result1, result2);
     } else {
       return DoNotTestView();
     }
@@ -144,6 +153,9 @@ class QuestionThree extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
           title: Text(""),
           backgroundColor: Colors.white,
         ),
@@ -151,12 +163,12 @@ class QuestionThree extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SizedBox(height:10),
-            Text("Does the patient have a sore throat, runny nose, or cough?",
+            Text("Does the patient have a sore throat, runny nose, pernio, or cough?",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),
                 textAlign:TextAlign.center),
             SizedBox(height: 10),
             Expanded(
-              child: YesNoView(get_positive_destination(), DoNotTestView()),
+              child: YesNoView(get_positive_destination(), get_negative_destination()),
             )
           ],
         ),
@@ -170,8 +182,10 @@ class QuestionFour extends StatelessWidget {
   int result2;
   QuestionFour(this.result1, this.result2);
   Widget get_positive_destination() {
-    if (is_tier2(result1)) {
+    if (is_tier3(result1)) {
       return QuestionThree(result1, result2);
+    } else if (is_tier2b(result1)) {
+      return TestView(result1);
     } else {
       return QuestionFive(result1, result2);
     }
@@ -180,6 +194,9 @@ class QuestionFour extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.black,
+          ),
           title: Text(""),
           backgroundColor: Colors.white,
         ),
@@ -205,17 +222,19 @@ class QuestionFive extends StatelessWidget {
   int result2;
   QuestionFive(this.result1, this.result2);
   Widget get_negative_destination() {
-    if (is_tier1c(result1)) {
+    if (is_tier1c(result1) || is_tier2a(result1)) {
       return DoNotTestView();
     } else {
-      return QuestionSix(false);
+      return QuestionSix(false, result1);
     }
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(""),
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
           backgroundColor: Colors.white,
         ),
         body: Center(
@@ -225,7 +244,7 @@ class QuestionFive extends StatelessWidget {
               Text("Does the patient have a cough?",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
               Expanded(
-                child: YesNoView(TestView(), get_negative_destination()),
+                child: YesNoView(TestView(result1), get_negative_destination()),
               )
             ],
           ),
@@ -235,11 +254,12 @@ class QuestionFive extends StatelessWidget {
 }
 
 class QuestionSix extends StatelessWidget {
+  int result1;
   bool result5;
-  QuestionSix(this.result5);
+  QuestionSix(this.result5, this.result1);
   Widget get_negative_destination() {
     if (result5) {
-      return TestView();
+      return TestView(result1);
     } else {
       return DoNotTestView();
     }
@@ -248,6 +268,9 @@ class QuestionSix extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
           backgroundColor: Colors.white,
         ),
         body: Center(
@@ -255,9 +278,10 @@ class QuestionSix extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 10),
               Text("Does the patient have SOB or myalgias?",
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),
+                  textAlign: TextAlign.center),
               Expanded(
-                child: YesNoView(TestView(), get_negative_destination()),
+                child: YesNoView(TestView(result1), get_negative_destination()),
               )
             ],
           ),
@@ -267,17 +291,21 @@ class QuestionSix extends StatelessWidget {
 }
 
 class QuestionSeven extends StatefulWidget {
+  int result1;
+  QuestionSeven(this.result1);
   @override
   _QuestionSevenState createState() => _QuestionSevenState();
 }
 
 class _QuestionSevenState extends State<QuestionSeven> {
-  int _currentAge = 65;
+  int _currentAge = 60;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(""),
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
           backgroundColor: Colors.white,
         ),
         body: Center(
@@ -288,7 +316,7 @@ class _QuestionSevenState extends State<QuestionSeven> {
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
                 SizedBox(height: 50),
                 new NumberPicker.integer(
-                    initialValue: 65,
+                    initialValue: 60,
                     minValue: 1,
                     maxValue: 100,
                     onChanged: (newValue) =>
@@ -300,7 +328,7 @@ class _QuestionSevenState extends State<QuestionSeven> {
                   color: Colors.red,
                   child: Text("Continue", style: TextStyle(color: Colors.white)),
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder:(context) => QuestionEight(_currentAge)));
+                    Navigator.push(context, MaterialPageRoute(builder:(context) => QuestionEight(_currentAge, widget.result1)));
                   }
                 )
               ],
@@ -311,11 +339,12 @@ class _QuestionSevenState extends State<QuestionSeven> {
 }
 
 class QuestionEight extends StatelessWidget {
+  int result1;
   int result7;
-  QuestionEight(this.result7);
+  QuestionEight(this.result7, this.result1);
   Widget get_positive_destination() {
-    if (result7 >= 65) {
-      return TestView();
+    if (result7 >= 60) {
+      return TestView(result1);
     } else {
       return DoNotTestView();
     }
@@ -324,7 +353,9 @@ class QuestionEight extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(""),
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
           backgroundColor: Colors.white,
         ),
         body: Center(
@@ -332,7 +363,7 @@ class QuestionEight extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                child: Text("Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease CAD or CHF), or morbid obesity?",
+                child: Text("Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease CAD or CHF), or BMI >= 35?",
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),
                     textAlign: TextAlign.center),
               ),
@@ -370,7 +401,9 @@ class QuestionNine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(""),
+          iconTheme: IconThemeData(
+            color: Colors.black, //change your color here
+          ),
           backgroundColor: Colors.white,
         ),
         body: Center(
@@ -392,7 +425,7 @@ class QuestionNine extends StatelessWidget {
               ),
               Expanded(
                 flex: 1,
-                child: YesNoView(TestView(), QuestionSeven()),
+                child: YesNoView(TestView(result1), QuestionSeven(result1)),
               )
             ],
           ),
@@ -433,24 +466,4 @@ class YesNoView extends StatelessWidget {
       )
     );
   }
-}
-
-bool is_tier1a(int i) {
-  return StrConstants().tier1a.contains(i);
-}
-
-bool is_tier1b(int i) {
-  return StrConstants().tier1b.contains(i);
-}
-
-bool is_tier1c(int i) {
-  return StrConstants().tier1c.contains(i);
-}
-
-bool is_tier1d(int i) {
-  return StrConstants().tier1d.contains(i);
-}
-
-bool is_tier2(int i) {
-  return StrConstants().tier2.contains(i);
 }

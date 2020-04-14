@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             Spacer(),
-            Text("Guidelines from 4/2/20"),
+            Text("Guidelines from 4/13/20"),
             SizedBox(height:30)
           ],
         ),
