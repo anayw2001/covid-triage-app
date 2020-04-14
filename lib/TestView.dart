@@ -4,7 +4,9 @@ class TestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(),
+      appBar: new AppBar(
+        backgroundColor: Colors.green,
+      ),
       body:  new Container(
         alignment: AlignmentDirectional.center,
         padding: const EdgeInsets.all(8.0),
@@ -13,6 +15,7 @@ class TestView extends StatelessWidget {
         // alignment: FractionalOffset.center,
         child: Column(
           children: <Widget>[
+            SizedBox(height: 10),
             new Stack(
               alignment: AlignmentDirectional.center,
               children: <Widget>[
@@ -24,10 +27,14 @@ class TestView extends StatelessWidget {
                 )
               ],
             ),
-            Text("Test this patient, according to current guidelines."),
+            SizedBox(height: 20),
+            Text("Test this patient, according to current guidelines.",
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center),
             Spacer(),
             RaisedButton(
-              child: Text("Go back to main screen"),
+              color: Colors.green,
+              child: Text("Go back to main screen", style: TextStyle(color: Colors.white),),
               onPressed: () {
                 Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
                 },

@@ -4,7 +4,7 @@ class DoNotTestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(),
+      appBar: AppBar(),
       body:  new Container(
         alignment: AlignmentDirectional.center,
         padding: const EdgeInsets.all(8.0),
@@ -13,21 +13,29 @@ class DoNotTestView extends StatelessWidget {
         // alignment: FractionalOffset.center,
         child: Column(
           children: <Widget>[
-            new Stack(
-              alignment: AlignmentDirectional.center,
-              children: <Widget>[
-                new Circle(Colors.red),
-                Icon(
-                  Icons.clear,
-                  color: Colors.white,
-                  size: 200.0
-                )
-              ],
+            SizedBox(height: 10),
+            Align(
+              alignment: Alignment.center,
+              child: new Stack(
+                alignment: AlignmentDirectional.center,
+                children: <Widget>[
+                  new Circle(Colors.red),
+                  Icon(
+                      Icons.clear,
+                      color: Colors.white,
+                      size: 200.0
+                  )
+                ],
+              ),
             ),
-            Text("Do not test this patient, according to current guidelines."),
+            SizedBox(height: 20),
+            Text("Do not test this patient, according to current guidelines.",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center),
             Spacer(),
             RaisedButton(
-              child: Text("Go back to main screen"),
+              color: Colors.red,
+              child: Text("Go back to main screen", style: TextStyle(color: Colors.white)),
               onPressed: () {
                 Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
               },

@@ -21,13 +21,13 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'COVID triage app'),
+      home: MyHomePage(title: 'COVID Triage'),
     );
   }
 }
@@ -86,12 +86,17 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Spacer(),
             RaisedButton(
-              child: Text('Tap here to get started'),
+              color: Colors.red,
+              child: Text('Tap here to get started', style: TextStyle(color: Colors.white)),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionOne()));
               },
-            )
+            ),
+            Spacer(),
+            Text("Guidelines from 4/2/20"),
+            SizedBox(height:30)
           ],
         ),
       ),

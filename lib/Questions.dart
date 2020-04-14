@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'DoNotTestView.dart';
@@ -31,12 +30,15 @@ class QuestionOne extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
+        backgroundColor: Colors.white,
       ),
       body: Center(
         child: Container(
           child: Column(
             children: <Widget>[
-              Text("What is your patient?"),
+              SizedBox(height: 10),
+              Text("What is your patient?", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
+              SizedBox(height: 10),
               Expanded(
                 child: ListView.builder(
                   itemCount: jobs_table.length,
@@ -83,36 +85,43 @@ class QuestionTwo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
+        backgroundColor: Colors.white,
       ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            Text("How long have symptoms been present?"),
-            ListView(
-              shrinkWrap: true,
-              children: <Widget>[
-                ListTile(
-                  title: Text(time_table[0]),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => DoNotTestView()));
-                  },
-                ),
-                ListTile(
-                  title: Text(time_table[1]),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => get_destination_one()));
-                  },
-                ),
-                ListTile(
-                  title: Text(time_table[2]),
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => get_destination_two()));
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 10),
+              Text("How long have symptoms been present?",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),
+                textAlign: TextAlign.center),
+              SizedBox(height: 10),
+              ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  ListTile(
+                    title: Text(time_table[0]),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => DoNotTestView()));
+                    },
+                  ),
+                  ListTile(
+                    title: Text(time_table[1]),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => get_destination_one()));
+                    },
+                  ),
+                  ListTile(
+                    title: Text(time_table[2]),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => get_destination_two()));
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
       ),
     );
   }
@@ -134,13 +143,18 @@ class QuestionThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
-      ),
+        appBar: AppBar(
+          title: Text(""),
+          backgroundColor: Colors.white,
+        ),
       body: Center(
         child: Column(
           children: <Widget>[
-            Text("Does the patient have a sore throat, runny nose, or cough?"),
+            SizedBox(height:10),
+            Text("Does the patient have a sore throat, runny nose, or cough?",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),
+                textAlign:TextAlign.center),
+            SizedBox(height: 10),
             Expanded(
               child: YesNoView(get_positive_destination(), DoNotTestView()),
             )
@@ -167,11 +181,15 @@ class QuestionFour extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(""),
+          backgroundColor: Colors.white,
         ),
         body: Center(
           child: Column(
             children: <Widget>[
-              Text("Does the patient have a fever? (Subjective/100.4 degrees/night sweats/chills)"),
+              SizedBox(height: 10),
+              Text("Does the patient have a fever? (Subjective/100.4 degrees/night sweats/chills)",
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),
+                textAlign: TextAlign.center),
               Expanded(
                 child: YesNoView(get_positive_destination(), DoNotTestView()),
               )
@@ -198,11 +216,14 @@ class QuestionFive extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(""),
+          backgroundColor: Colors.white,
         ),
         body: Center(
           child: Column(
             children: <Widget>[
-              Text("Does the patient have a cough?"),
+              SizedBox(height: 10),
+              Text("Does the patient have a cough?",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
               Expanded(
                 child: YesNoView(TestView(), get_negative_destination()),
               )
@@ -227,12 +248,14 @@ class QuestionSix extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(""),
+          backgroundColor: Colors.white,
         ),
         body: Center(
           child: Column(
             children: <Widget>[
-              Text("Does the patient have a cough?"),
+              SizedBox(height: 10),
+              Text("Does the patient have SOB or myalgias?",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
               Expanded(
                 child: YesNoView(TestView(), get_negative_destination()),
               )
@@ -249,23 +272,33 @@ class QuestionSeven extends StatefulWidget {
 }
 
 class _QuestionSevenState extends State<QuestionSeven> {
-  int _currentAge = 0;
+  int _currentAge = 65;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(""),
+          backgroundColor: Colors.white,
+        ),
         body: Center(
             child: Column(
               children: <Widget>[
-                Text("How old is your patient?"),
+                SizedBox(height: 10),
+                Text("How old is your patient?",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
+                SizedBox(height: 50),
                 new NumberPicker.integer(
                     initialValue: 65,
                     minValue: 1,
                     maxValue: 100,
                     onChanged: (newValue) =>
                         setState(() => _currentAge = newValue)),
-                FlatButton(
-                  child: Text("Continue"),
+                SizedBox(height: 10),
+                Text("Current age: $_currentAge", style: TextStyle(fontSize: 20)),
+                SizedBox(height: 30),
+                RaisedButton(
+                  color: Colors.red,
+                  child: Text("Continue", style: TextStyle(color: Colors.white)),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder:(context) => QuestionEight(_currentAge)));
                   }
@@ -292,11 +325,17 @@ class QuestionEight extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(""),
+          backgroundColor: Colors.white,
         ),
         body: Center(
           child: Column(
             children: <Widget>[
-              Text("Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease CAD or CHF), or morbid obesity?"),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                child: Text("Does the patient have diabetes or asthma/COPD/chronic lung disease, or heart disease CAD or CHF), or morbid obesity?",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),
+                    textAlign: TextAlign.center),
+              ),
               Expanded(
                 child: YesNoView(get_positive_destination(), DoNotTestView()),
               )
@@ -310,16 +349,20 @@ class QuestionEight extends StatelessWidget {
 class QuestionNine extends StatelessWidget {
   int result1;
   int result2;
-  var clarifications = ["-Steroids >20mg (or > 0.5mg/kg/day in pediatrics) for > 2 weeks",
-    "-On biologics or other steroid sparing immunomodulators (other than Plaquenil)",
-    "-Chemotherapy for solid organ tumor or other malignancy less than 3 months ago",
-    "-Hematologic malignancy not in remission",
-    "-S/P autologous HSCT x 1 year, allogeneic HSCT until off immunosuppression x 1 year",
-    "-Solid organ transplant recipient",
-    "-Others: CVID, uncontrolled HIV, primary immunodeficiency"];
+  var clarifications = [
+    "- Steroids >20mg (or > 0.5mg/kg/day in pediatrics) for > 2 weeks",
+    "- On biologics or other steroid sparing immunomodulators (other than Plaquenil)",
+    "- Chemotherapy for solid organ tumor or other malignancy less than 3 months ago",
+    "- Hematologic malignancy not in remission",
+    "- S/P autologous HSCT x 1 year, allogeneic HSCT until off immunosuppression x 1 year",
+    "- Solid organ transplant recipient",
+    "- Others: CVID, uncontrolled HIV, primary immunodeficiency"];
   List<Widget> _clarifications() {
     List<Widget> ret = <Widget>[];
-    for (String clarification in clarifications) ret.add(Text(clarification));
+    for (String clarification in clarifications) {
+      ret.add(Text(clarification, textAlign: TextAlign.start, style: TextStyle(fontSize: 18)));
+      ret.add(SizedBox(height:10));
+    }
     return ret;
   }
   QuestionNine(this.result1, this.result2);
@@ -328,17 +371,27 @@ class QuestionNine extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text(""),
+          backgroundColor: Colors.white,
         ),
         body: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text("Is this patient immunocompromised?"),
+              SizedBox(height: 10),
+              Text("Is this patient immunocompromised?",
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0)),
+              SizedBox(height:10),
               Expanded(
-                child: Column(
-                  children: _clarifications(),
-                ),
+                flex: 0,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: Column(
+                    children: _clarifications(),
+                  ),
+                )
               ),
               Expanded(
+                flex: 1,
                 child: YesNoView(TestView(), QuestionSeven()),
               )
             ],
@@ -356,20 +409,25 @@ class YesNoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ButtonBar(
+        child: Row(
           children: <Widget>[
-            FlatButton(
-              child: Text("Yes"),
+            Spacer(),
+            RaisedButton(
+              color: Colors.red,
+              child: Text("Yes", style: TextStyle(color: Colors.white)),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => positiveDestination));
               }
             ),
-            FlatButton(
-              child: Text("No"),
+            Spacer(),
+            RaisedButton(
+              color: Colors.red,
+              child: Text("No", style: TextStyle(color: Colors.white)),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => negativeDestination));
                 }
-            )
+            ),
+            Spacer(),
           ],
         ),
       )
