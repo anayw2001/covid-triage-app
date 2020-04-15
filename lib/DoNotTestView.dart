@@ -6,11 +6,10 @@ class DoNotTestView extends StatelessWidget {
     return new Scaffold(
       appBar: AppBar(),
       body:  new Container(
-        alignment: AlignmentDirectional.center,
+        alignment: Alignment.center,
         padding: const EdgeInsets.all(8.0),
         height: 500.0,
         width: 500.0,
-        // alignment: FractionalOffset.center,
         child: Column(
           children: <Widget>[
             SizedBox(height: 10),

@@ -25,24 +25,47 @@ class hcwStrings {
 
 class nonHcwStrings {
   static List<String> confirmed = [
-    "Self-quarantine and actively monitor for 14 days",
-    "Self-quarantine for 7 days after symptom onset and 3 days after symptom resolution, whichever is longer."
+    "Self-quarantine for 7 days and may discontinue quarantine 7 days or longer since the date of their first positive COVID-19 diagnostic test (provided they remain asymptomatic). \n\n" +
+    "However, for 3 days (72hrs) following discontinuation of quarantine, these persons should continue to limit contact (stay 6 feet away from others) and limit potential of dispersal of respiratory secretions by wearing a covering for their nose and mouth whenever they are in settings where other people are present.\n\n" +
+    "In community settings, this covering may be a barrier mask, such as a bandana, scarf, or cloth mask. The covering does not refer to a medical mask or respirator",
+    "In All counties except for Santa Clara COVID+ patients are no longer considered contagious if the following criteria are fulfilled: " +
+    "A. At least 7 days have passed since symptoms first appeared\n" +
+    "B. At least 3 days (72 hours) have passed since recovery (defined as resolution of fever without the use of fever-reducing medications and improvement in respiratory symptoms= cough, shortness of breath) AND\n" +
+    "C. Must remain quarantined for whichever period (A or A+B) is longer\n\n" +
+    "In Santa Clara County, COVID + patients are no longer considered contagious if the following criteria are fulfilled: \n"
+    "A. 14 days after the date of their positive test result OR\n"
+    "B. Until 7 days after fever is gone and other symptoms are improving AND\n"
+    "C.  Must remain quarantined for whichever period (A or A+B) is longer\n\n"
+    "Caveat: In Fresno County, COVID+  patients in sensitive occupations or situations(EMS, residents in LTCF, hospice patients, dialysis patients, caring for infants ( < 6 months of age), immunocompromised patients, patients required hospitalization):  are no longer considered contagious if the following criteria are fulfilled: \n" +
+    "A. At least 14 days have passed since symptoms first appeared\n" +
+    "B. At least 7 days have passed since recovery defined as resolution of fever without the use of fever-reducing medications and improvement in respiratory symptoms (e.g., cough, shortness of breath); and,\n" +
+    "C. And must remain quarantine for whichever period (A or A+B) is longer"
   ];
   static List<String> at_risk_travel = [
-    "Self-quarantine for 14 days from date of departure",
-    "Self-quarantine for 7 days after symptom onset and 3 days after symptom resolution, whichever is longer. (also, need minimum of 14 days from return)"
+    "Self-quarantine for 14 days from date of departure and actively monitor twice a day for fever.",
+    "Self-quarantine until the following conditions are met:\n"+
+    "A. At least 7 days have passed since symptoms first appeared\n" +
+    "B. At least 3 days (72 hours) have passed since recovery (defined as resolution of fever without the use of fever-reducing medications and improvement in respiratory symptoms= cough, shortness of breath) AND\n" +
+    "C. Must remain quarantined for whichever period (A or A+B) is longer"
   ];
   static List<String> at_risk_living = [
-    "Self-quarantine for 14 days from date of last contact",
-    "Self-quarantine for 7 days after symptom onset and 3 days after symptom resolution (also need a minimum of 14 days from last exposure to sick person), whichever is longer."
+    "Non-household close contact, self-quarantine for 14 days since the last (finite) exposure to the ill contact. \n\n" +
+    "Household close contact: the isolation recommendation is less clear as the close contact with the COVID + case can be going.  In this scenario, use the period of time the COVID + person is no longer contagious. This depends on county. See ISO GRID above.\n\n" +
+    "Caveat: caretaker for COVID+ patients including those discharged from the hospital. These patients need caretaking; if close contact is a caretaker of a COVID + patient, then home isolate to the degree possible, and can leave the home to get medications, supplies, etc",
+    "A. At least 7 days have passed since symptoms first appeared\n" +
+    "B. At least 3 days (72 hours) have passed since recovery (defined as resolution of fever without the use of fever-reducing medications and improvement in respiratory symptoms= cough, shortness of breath) AND\n" +
+    "C. Must remain quarantined for whichever period (A or A+B) is longer"
   ];
   static List<String> at_risk_high_risk = [
     "Home isolation",
-    "Self-quarantine for 3 days after symptom resolution"
+    "If not tested but high clinical suspicion for COVID19, then quarantine for:\n" +
+    "A. At least 7 days have passed since symptoms first appeared" +
+    "B. At least 3 days (72 hours) have passed since recovery (defined as resolution of fever without the use of fever-reducing medications and improvement in respiratory symptoms= cough, shortness of breath) AND\n" +
+    "C. Must remain quarantined for whichever period (A or A+B) is longer"
   ];
   static List<String> at_risk_high_transmission = [
     "Home isolation vs social distancing depending on workplace policy",
-    "Self-quarantine for 3 days after symptom resolution"
+    "Self-quarantine. At least 3 days (72 hours) have passed since recovery (defined as resolution of fever without the use of fever-reducing medications and improvement in respiratory symptoms= cough, shortness of breath)."
   ];
 }
 
@@ -295,11 +318,16 @@ class FinishingView extends StatelessWidget {
         ),
         body: Center(
           child: Column(
+//            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 50),
-              Text(advice, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0), textAlign: TextAlign.center),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                child: Text(advice, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0), textAlign: TextAlign.left),
+              ),
               SizedBox(height: 60),
               RaisedButton(
+
                 color: Colors.red,
                 child: Text("Go back to main screen.", style: TextStyle(color: Colors.white)),
                 onPressed: () {
