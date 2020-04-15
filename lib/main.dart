@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'IsolationGrid.dart';
 import 'Questions.dart';
 
 void main() {
@@ -92,6 +93,14 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('Tap here to get started', style: TextStyle(color: Colors.white)),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionOne()));
+              },
+            ),
+            SizedBox(height: 20),
+            RaisedButton(
+              color: Colors.red,
+              child: Text('Tap here to access the isolation grid.', style: TextStyle(color: Colors.white)),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => IsolationGridFilter()));
               },
             ),
             Spacer(),
