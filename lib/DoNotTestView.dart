@@ -29,7 +29,7 @@ class DoNotTestView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            Text("Do not test this patient, according to current guidelines.",
+            Text("Test is NOT indicated at this time per current guidelines.",
               style: TextStyle(fontSize: 20),
               textAlign: TextAlign.center),
             Spacer(),

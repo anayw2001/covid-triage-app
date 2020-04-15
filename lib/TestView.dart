@@ -31,7 +31,7 @@ class TestView extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20),
-            Text("Test this patient, according to current guidelines.",
+            Text("Testing is incidcated according to current guidelines.",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center),
             Text("This patient is Tier " + which_tier(result1) + ".",
