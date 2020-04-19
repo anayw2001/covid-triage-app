@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'COVID Triage',
+      title: 'TPMG COVID Triage',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -22,13 +22,16 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.blue,
+        ),
       ),
-      home: MyHomePage(title: 'COVID Triage'),
+      home: MyHomePage(title: 'TPMG COVID Triage'),
     );
   }
 }
@@ -89,16 +92,20 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Spacer(),
             RaisedButton(
-              color: Colors.red,
-              child: Text('Tap here to get started', style: TextStyle(color: Colors.white)),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                child: Text('Tap here to get started', style: TextStyle(color: Colors.white, fontSize: 36.0)),
+              ),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionOne()));
               },
             ),
             SizedBox(height: 20),
             RaisedButton(
-              color: Colors.red,
-              child: Text('Tap here to access the isolation grid.', style: TextStyle(color: Colors.white)),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                child: Text('Tap here to access the isolation grid.', style: TextStyle(color: Colors.white, fontSize: 36.0), softWrap: true,),
+              ),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => IsolationGridFilter()));
               },

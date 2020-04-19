@@ -4,7 +4,9 @@ class DoNotTestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+      ),
       body:  new Container(
         alignment: Alignment.center,
         padding: const EdgeInsets.all(8.0),
@@ -34,7 +36,10 @@ class DoNotTestView extends StatelessWidget {
             Spacer(),
             RaisedButton(
               color: Colors.red,
-              child: Text("Go back to main screen", style: TextStyle(color: Colors.white)),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                child: Text("Go back to main screen", style: TextStyle(color: Colors.white)),
+              ),
               onPressed: () {
                 Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
               },

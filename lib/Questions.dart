@@ -164,7 +164,7 @@ class QuestionThree extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SizedBox(height:10),
-            Text("Does the patient have a sore throat, runny nose, pernio, or cough?",
+            Text("Does the patient have a sore throat, runny nose, pernio, anosmia or cough?",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 25.0),
                 textAlign:TextAlign.center),
             SizedBox(height: 10),
@@ -325,8 +325,10 @@ class _QuestionSevenState extends State<QuestionSeven> {
                 Text("Current age: $_currentAge", style: TextStyle(fontSize: 20)),
                 SizedBox(height: 30),
                 RaisedButton(
-                  color: Colors.red,
-                  child: Text("Continue", style: TextStyle(color: Colors.white)),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    child: Text("Continue", style: TextStyle(color: Colors.white, fontSize: 36.0)),
+                  ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder:(context) => QuestionEight(_currentAge, widget.result1)));
                   }
@@ -342,6 +344,13 @@ class QuestionEight extends StatelessWidget {
   int result1;
   int result7;
   QuestionEight(this.result7, this.result1);
+  Widget get_negative_destination() {
+    if (result7 >= 60) {
+      return TestView(result1);
+    } else {
+      return DoNotTestView();
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -361,7 +370,7 @@ class QuestionEight extends StatelessWidget {
                     textAlign: TextAlign.center),
               ),
               Expanded(
-                child: YesNoView(TestView(result1), DoNotTestView()),
+                child: YesNoView(TestView(result1), get_negative_destination()),
               )
             ],
           ),

@@ -40,7 +40,10 @@ class TestView extends StatelessWidget {
             Spacer(),
             RaisedButton(
               color: Colors.green,
-              child: Text("Go back to main screen", style: TextStyle(color: Colors.white),),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                child: Text("Go back to main screen", style: TextStyle(color: Colors.white, fontSize: 36.0)),
+              ),
               onPressed: () {
                 Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
                 },

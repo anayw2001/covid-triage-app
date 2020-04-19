@@ -12,16 +12,20 @@ class YesNoView extends StatelessWidget {
             children: <Widget>[
               Spacer(),
               RaisedButton(
-                  color: Colors.red,
-                  child: Text("Yes", style: TextStyle(color: Colors.white)),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    child: Text("Yes", style: TextStyle(color: Colors.white, fontSize: 36.0)),
+                  ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => positiveDestination));
                   }
               ),
               Spacer(),
               RaisedButton(
-                  color: Colors.red,
-                  child: Text("No", style: TextStyle(color: Colors.white)),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    child: Text("No", style: TextStyle(color: Colors.white, fontSize: 36.0)),
+                  ),
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => negativeDestination));
                   }
