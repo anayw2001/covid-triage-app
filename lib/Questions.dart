@@ -342,13 +342,6 @@ class QuestionEight extends StatelessWidget {
   int result1;
   int result7;
   QuestionEight(this.result7, this.result1);
-  Widget get_positive_destination() {
-    if (result7 >= 60) {
-      return TestView(result1);
-    } else {
-      return DoNotTestView();
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -368,7 +361,7 @@ class QuestionEight extends StatelessWidget {
                     textAlign: TextAlign.center),
               ),
               Expanded(
-                child: YesNoView(get_positive_destination(), DoNotTestView()),
+                child: YesNoView(TestView(result1), DoNotTestView()),
               )
             ],
           ),
